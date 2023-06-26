@@ -1,0 +1,40 @@
+.custom-footer {
+    background: #201d29;
+    height: 65px;
+    margin-top: 3%;
+    width: 100%;
+    
+}
+
+.custom-allicon {
+    display: flex;
+    margin-left: 100%;
+
+}
+.custom-icon {
+    font-size: 40px;
+    position: relative;
+    color:#a7a3bd;
+    margin-left: 1%;
+}
+
+.custom-icon:hover {
+
+    color:#d2d0e2;
+}
+
+.custom-text {
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color:#a7a3bd;
+    margin-left: 2%;
+    text-decoration: none;
+    
+
+}
+
+.custom-text:hover {
+
+    color:#d2d0e2;
+}

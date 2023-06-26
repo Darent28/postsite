@@ -1,0 +1,62 @@
+body { 
+    background: #16141d;
+    color: rgb(255, 255, 255);
+  
+}
+
+
+.card {
+    margin: auto;
+    line-height: 20px;
+    width: 50%;
+    background: #201d29;
+    color: #a7a3bd;
+    padding: 20px;
+    margin-top: 50px;
+    
+}
+.Home {
+    margin-top: 5%;
+
+}
+
+.custom-h1-post {
+    font-size: 60px;
+    font-weight: bold;
+   
+}
+
+.card-header {
+    display: flex;
+}
+.card-header h2{
+    margin-left: 1%;
+}
+.card-header h6{
+    margin-top: 1%;
+    margin-left: 4%;
+}
+
+.custom-publish {
+   width: 40%;
+   margin-left: 30%;
+   margin-top: 2%;
+   background-color: #201d29;
+   border-color: #504d58;
+}
+
+.custom-publish::placeholder {
+    font-weight: bold;
+    color: #f0edff;
+    text-align: center;
+}
+
+.custom-publish:focus::placeholder {
+
+    color: #a7a3bd;
+}
+
+.custom-publish:focus{
+    background-color: #19161f;
+    
+}

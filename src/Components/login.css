@@ -1,0 +1,60 @@
+.login {
+    margin: auto;
+    line-height: 50px;
+    width: 25%;
+    border: 1px solid;
+    background: #201d29;
+    color: rgb(132, 131, 137);
+    padding: 20px;
+    border-radius: 15px ;
+}
+
+
+
+input {
+   display: flex;
+
+}
+
+
+button {
+    
+    display: flex;
+    margin: auto;
+    
+}
+
+.top {
+    margin-top: 100px;
+    height: 718px;
+    
+}
+
+.account {
+    margin: auto;
+    margin-top: 20px;
+    line-height: 50px;
+    width: 25%;
+    border: 1px solid;
+    background: #16141d;
+    color: rgb(132, 131, 137);
+    text-align: center;
+    border-radius: 15px ;
+    
+}
+
+.forgot {
+    text-decoration: none;  
+}
+
+.custom-input{
+    background-color: #201d29;
+    border-color: #504d58;
+    color: aliceblue;
+ }
+ 
+
+.custom-input:focus{
+    background-color: #19161f;
+    color: aliceblue;
+}
