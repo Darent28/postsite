@@ -3,6 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css'
 import './home.css'
 import './modal.css'
+import { Link } from 'react-router-dom';
 
 export const Home = ({ userdata }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -153,7 +154,7 @@ export const Home = ({ userdata }) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item className='custom-item' href={`./publish/edit/${rows.id_post}`}>Edit</Dropdown.Item>
+                                <Dropdown.Item className='custom-item'><Link to={`./publish/edit/${rows.id_post}`} style={{ textDecoration: 'none', color: 'white' }} >Edit</Link></Dropdown.Item>
                                 <Dropdown.Item className='custom-item' onClick={() => handleDelete(rows.id_post)}>Delete</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
