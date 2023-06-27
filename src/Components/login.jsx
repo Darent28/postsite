@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './login.css';
 
@@ -79,7 +79,7 @@ export const LogIn = ({ user, setUser, setToken }) => {
                 </div>
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Log in</button>
             </form>
-            <p className="account">New to PostSite? <a className="forgot" href="./sign-in">Create account</a>.</p>
+            <p className="account">New to PostSite? <Link className="forgot" to="./sign-in">Create account</Link>.</p>
         </div> 
     )
 }
