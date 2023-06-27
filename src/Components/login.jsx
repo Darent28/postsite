@@ -79,7 +79,7 @@ export const LogIn = ({ user, setUser, setToken }) => {
                 </div>
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Log in</button>
             </form>
-            <p className="account">New to PostSite? <Link className="forgot" to="./sign-in">Create account</Link>.</p>
+            <p className="account">New to PostSite? <Link className="forgot" to="../sign-in">Create account</Link>.</p>
         </div> 
     )
 }
