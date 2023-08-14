@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css'
 import './home.css'
 import './modal.css'
 import { Link } from 'react-router-dom';
 
+
 export const Home = ({ userdata }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [image, setImage] = useState(null);
+
    
     const handleClick = () => {
       setIsOpen(true);
     };
 
-  
+    
   
     const closeModal = () => {
         setIsOpen(false);
     };
-
 
     const [post, setPost] = useState({
         tittle: '',
@@ -25,12 +27,18 @@ export const Home = ({ userdata }) => {
     });
 
     const handleText = e => {
-
+       
         setPost({
           ...post,
           [e.target.name]: e.target.value
         })
+        
+        console.log(post)
     }
+
+    const handleImageChange = (event) => {
+        setImage(event.target.files[0]);
+    };
 
 
     let {tittle, text, id_user} = post
@@ -40,21 +48,21 @@ export const Home = ({ userdata }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         //data validation
-        if ( tittle === '' || text === '' || id_user === '') {
+        if ( tittle === '' || text === '' || id_user === '' || !image) {
             alert('Todos los campos son obligatorios')
             return
         }
 
-        const fullpost = {
-            tittle,
-            text,
-            id_user 
-        }
-    
+        const formData = new FormData();
+        formData.append('tittle', tittle);
+        formData.append('text', text);
+        formData.append('id_user', id_user);
+        formData.append('image_data', image);
+
+      
         const requestInit = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(fullpost),
+            body: formData
         }
 
         fetch('http://localhost:5000/post', requestInit)
@@ -63,14 +71,20 @@ export const Home = ({ userdata }) => {
             console.log(res);
             window.location.reload(); 
         })
+        .catch(err => { 
+            console.error(err)
+        })
 
         setPost({
             tittle: '',
             text: ''
         })
-    
-        console.log(fullpost)
+        
+        document.getElementById('fileinput').value = null;
+
+        console.log(formData);
         setIsOpen(false);
+        setImage(null);
     }
 
     const [postData, setpostData] = useState([{}])
@@ -162,6 +176,13 @@ export const Home = ({ userdata }) => {
                             <br />
                             <h5 className="card-title">{rows.tittle}</h5>
                             <p className="card-text">{rows._text}</p>
+                            {rows.image_data && (
+                                <img
+                                    src={URL.createObjectURL(new Blob([new Uint8Array(rows.image_data.data)]))}
+                                    alt="Postimage"
+                                    className="card-img"
+                                />
+                            )}
                         </div>
                         
                     </div>
@@ -180,6 +201,11 @@ export const Home = ({ userdata }) => {
                                 Text: 
                                 <textarea type="text" className="form-control custom-input" name="text" 
                                 onChange={handleText} required/>
+                    </div>
+                    <div className="form-group">
+                                Load image: 
+                                <input type="file" className="form-control custom-input" accept="image/*" 
+                                onChange={handleImageChange} id='fileinput' required/>
                     </div>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         <button type="submit" className="btn btn-secondary">Publish</button>

@@ -15,9 +15,6 @@ export const Footer = () => {
                 <Link to="https://github.com/Darent28" className="custom-icon"><BsGithub /></Link> 
                 <Link className="custom-text"> <AiFillMail/> davidantonioelizondoramos@gmail.com</Link>
             </div>
-
-           
-          
         </div>
     );
 

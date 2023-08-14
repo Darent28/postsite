@@ -9,7 +9,7 @@ export const LogIn = ({ user, setUser, setToken }) => {
     const handleClick = e => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value });
-
+        console.log(user)
     }
 
     let { name, password } = user

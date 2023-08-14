@@ -7,9 +7,6 @@ import Footer from './Components/footer';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-
-
-
 function App() {
 
   const [ user, setUser ] = useState({
