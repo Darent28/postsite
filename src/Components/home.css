@@ -1,7 +1,6 @@
 body { 
     background: #16141d;
     color: rgb(255, 255, 255);
-  
 }
 
 
@@ -12,12 +11,11 @@ body {
     background: #201d29;
     color: #a7a3bd;
     padding: 20px;
-    margin-top: 50px;
-    
+    margin-top: 50px;    
 }
+
 .Home {
     margin-top: 5%;
-
 }
 
 .custom-h1-post {
@@ -59,4 +57,36 @@ body {
 .custom-publish:focus{
     background-color: #19161f;
     
+}
+
+
+.custom-comment {
+    background-color: #201d29;
+    border-color: #504d58;
+    color: #f0edff;
+    height: 40px;
+   margin-right: 3%;
+}
+
+.custom-comment::placeholder {
+    color: #a5a2b5;
+
+}
+
+.custom-comment:focus{
+    background-color: #19161f;
+    color: #f0edff;
+}
+
+.div-comment{
+    display: flex;
+}
+
+.custom-icon-comment {
+    margin-top: 1%;
+    font-size: 30px;
+}
+
+.custom-icon-comment:hover {
+    color:#fefeff
 }

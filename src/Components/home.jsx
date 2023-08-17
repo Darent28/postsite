@@ -1,15 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css'
 import './home.css'
 import './modal.css'
 import { Link } from 'react-router-dom';
+import { BsFillSendFill } from 'react-icons/bs'
 
 
 export const Home = ({ userdata }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [image, setImage] = useState(null);
-
    
     const handleClick = () => {
       setIsOpen(true);
@@ -36,9 +35,38 @@ export const Home = ({ userdata }) => {
         console.log(post)
     }
 
+    const [comment, setComment] = useState({
+        comment: ''
+    });
+
+    const handleTextComment = e => {
+
+        setComment({
+            ...comment,
+            [e.target.name]: e.target.value
+        })
+
+        console.log(comment)
+    }
+
+
+    const [image, setImage] = useState(null);
+
     const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
+        const selectedImage = setImage(event.target.files[0]);
+
+        if (selectedImage) {
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+            if (selectedImage.size > maxSizeInBytes) {
+                alert('Image size is too large. Please select a smaller image.');
+                event.target.value = null; // Clear the input
+                setImage(null); // Clear the state
+            } else {
+                setImage(selectedImage);
+            }
+        }
     };
+
 
 
     let {tittle, text, id_user} = post
@@ -153,15 +181,12 @@ export const Home = ({ userdata }) => {
                 </div>
             )}
 
-   
                 {postData.map((rows) => (
                     <div className="card" key={rows.id}>
                         <div className="card-header">
+                            
                         <h2 className="card-subtitle mb-2 text-muted customcard">{rows.name}</h2>
                         <h6 className="card-subtitle mb-2 text-muted">{rows.formattedDate}</h6>
-                        
-                        </div>
-                        <div className="card-body">
                         { rows.id_user === userdata.data.user.id && (
                         <Dropdown className='custom-dropdown'>
                             <Dropdown.Toggle className='custom-toggle' variant="secondary"  id="dropdown-button-drop-end">
@@ -173,8 +198,11 @@ export const Home = ({ userdata }) => {
                             </Dropdown.Menu>
                         </Dropdown>
                         )}     
+                        </div>
+                        
+                        <div className="card-body">
                             <br />
-                            <h5 className="card-title">{rows.tittle}</h5>
+                            <h2 className="card-title">{rows.tittle}</h2>
                             <p className="card-text">{rows._text}</p>
                             {rows.image_data && (
                                 <img
@@ -183,6 +211,20 @@ export const Home = ({ userdata }) => {
                                     className="card-img"
                                 />
                             )}
+                            <br/>
+                            <br/>
+                            <h4 className="card-title"> Comments </h4>
+                            <hr/>
+                            {userdata.data.user.id && (
+                                <div className="div-comment">
+                                    <input
+                                        className="form-control custom-comment"
+                                        placeholder="Type..." name="comment" onChange={ handleTextComment }
+                                    />
+                                    <BsFillSendFill type="submit" className="custom-icon-comment" />
+                                </div>
+                            )}
+                            
                         </div>
                         
                     </div>
