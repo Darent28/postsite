@@ -19,37 +19,7 @@ export const Home = ({ userdata }) => {
     const closeModal = () => {
         setIsOpen(false);
     };
-
-    const [post, setPost] = useState({
-        tittle: '',
-        text: ''
-    });
-
-    const handleText = e => {
-       
-        setPost({
-          ...post,
-          [e.target.name]: e.target.value
-        })
-        
-        console.log(post)
-    }
-
-    const [comment, setComment] = useState({
-        comment: ''
-    });
-
-    const handleTextComment = e => {
-
-        setComment({
-            ...comment,
-            [e.target.name]: e.target.value
-        })
-
-        console.log(comment)
-    }
-
-
+    
     const [image, setImage] = useState(null);
 
     const handleImageChange = (event) => {
@@ -67,14 +37,19 @@ export const Home = ({ userdata }) => {
         }
     };
 
+    const [post, setPost] = useState({
+        tittle: '',
+        text: ''
+    });
 
 
     let {tittle, text, id_user} = post
 
     id_user = userdata.data.user.id
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event) => {        
         event.preventDefault();
+
         //data validation
         if ( tittle === '' || text === '' || id_user === '' || !image) {
             alert('Todos los campos son obligatorios')
@@ -115,8 +90,21 @@ export const Home = ({ userdata }) => {
         setImage(null);
     }
 
-    const [postData, setpostData] = useState([{}])
+   
+
+   
+    const handleText = e => {
+       
+        setPost({
+          ...post,
+          [e.target.name]: e.target.value
+        })
+        
+        console.log(post)
+    }
     
+    const [postData, setpostData] = useState([{}])
+
     useEffect ( () => { 
       fetch('http://localhost:5000/getpost', {
         method: 'GET',
@@ -137,12 +125,12 @@ export const Home = ({ userdata }) => {
                     };
                    
                 });
-                
                 setpostData(formattedData);
             } else {
               console.log('Invalid data format:', data);
             }
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.error('Fetch error:', error);
         });
           
@@ -167,6 +155,93 @@ export const Home = ({ userdata }) => {
         });
     };
 
+    const [commentdata, setComment] = useState({
+        comment: ''
+    });
+
+    
+    const handleTextComment = e => {
+
+        setComment({
+            ...commentdata,
+            [e.target.name]: e.target.value
+        })
+
+        console.log(commentdata)
+    }
+
+    let { comment } = commentdata
+
+
+    const handleSubmitComment = (event, id_post) => {
+        event.preventDefault();
+        //data validation
+        if ( comment === '' || id_user === '') {
+            alert('Please write a comment')
+            return
+        }
+
+        const commentgetdata = { comment, id_post, id_user };
+      
+        const requestInit = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(commentgetdata)
+        }
+
+        fetch('http://localhost:5000/postComment', requestInit)
+        .then ((res) => res.json())
+        .then ((res) => {
+            console.log(res);
+            window.location.reload(); 
+        })
+        .catch(err => { 
+            console.error(err)
+        })
+
+        setComment({
+            comment: ''
+        })
+
+    }
+
+    const [commentData, setcomentData] = useState([{}])
+
+    useEffect ( () => { 
+
+        fetch('http://localhost:5000/getComment', {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'}
+          }).then(
+              response => response.json()
+          ).then((data) => {
+              if (Array.isArray(data)) {
+                  const formattedData = data.map((row) => {
+                      const date = new Date(row.c_date);
+                      const formattedDate = date.toLocaleString("es-ES", {
+                        dateStyle: "short",
+                        timeStyle: "short"
+                      });
+                      return {
+                        ...row,
+                        formattedDate
+                      };
+                     
+                  });
+                  setcomentData(formattedData);
+              } else {
+                console.log('Invalid data format:', data);
+              }
+          })
+          .catch((error) => {
+            console.error('Fetch error:', error);
+        });
+            
+        
+    }, []) 
+
+
+
     return(
         <div className='Home'>
             <h1 className='custom-h1-post' align="center">PostSite</h1>
@@ -181,32 +256,31 @@ export const Home = ({ userdata }) => {
                 </div>
             )}
 
-                {postData.map((rows) => (
-                    <div className="card" key={rows.id}>
+                {postData.map((post) => (
+                    <div className="card" key={post.id}>
                         <div className="card-header">
                             
-                        <h2 className="card-subtitle mb-2 text-muted customcard">{rows.name}</h2>
-                        <h6 className="card-subtitle mb-2 text-muted">{rows.formattedDate}</h6>
-                        { rows.id_user === userdata.data.user.id && (
+                        <h2 className="card-subtitle mb-2 text-muted customcard">{post.name}</h2>
+                        <h6 className="card-subtitle mb-2 text-muted">{post.formattedDate}</h6>
+                        { post.id_user === userdata.data.user.id && (
                         <Dropdown className='custom-dropdown'>
                             <Dropdown.Toggle className='custom-toggle' variant="secondary"  id="dropdown-button-drop-end">
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item className='custom-item'><Link to={`./publish/edit/${rows.id_post}`} style={{ textDecoration: 'none', color: 'white' }} >Edit</Link></Dropdown.Item>
-                                <Dropdown.Item className='custom-item' onClick={() => handleDelete(rows.id_post)}>Delete</Dropdown.Item>
+                                <Dropdown.Item className='custom-item'><Link to={`./publish/edit/${post.id_post}`} style={{ textDecoration: 'none', color: 'white' }} >Edit</Link></Dropdown.Item>
+                                <Dropdown.Item className='custom-item' onClick={() => handleDelete(post.id_post)}>Delete</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                         )}     
                         </div>
-                        
                         <div className="card-body">
                             <br />
-                            <h2 className="card-title">{rows.tittle}</h2>
-                            <p className="card-text">{rows._text}</p>
-                            {rows.image_data && (
+                            <h2 className="card-title">{post.tittle}</h2>
+                            <p className="card-text">{post._text}</p>
+                            {post.image_data && (
                                 <img
-                                    src={URL.createObjectURL(new Blob([new Uint8Array(rows.image_data.data)]))}
+                                    src={URL.createObjectURL(new Blob([new Uint8Array(post.image_data.data)]))}
                                     alt="Postimage"
                                     className="card-img"
                                 />
@@ -215,14 +289,32 @@ export const Home = ({ userdata }) => {
                             <br/>
                             <h4 className="card-title"> Comments </h4>
                             <hr/>
+                            {commentData.map((comment) => {
+                                if (comment.id_post === post.id_post) {
+                                    return (
+                                      <div className="comment-side" key={comment.id}>
+                                        <div className="comment-name">
+                                          <h5>{comment.name}</h5>
+                                          <h5>{comment.formattedDate}</h5>
+                                        </div>
+                                        <p>{comment._comment}</p>
+                                      </div>
+                                    );
+                                } else {
+                                  return null; // No mostrar el comentario si no corresponde al post actual
+                                }
+                            })}
                             {userdata.data.user.id && (
-                                <div className="div-comment">
-                                    <input
-                                        className="form-control custom-comment"
-                                        placeholder="Type..." name="comment" onChange={ handleTextComment }
-                                    />
-                                    <BsFillSendFill type="submit" className="custom-icon-comment" />
-                                </div>
+                                    <form onSubmit={(event) => handleSubmitComment(event, post.id_post)}>
+                                         <div className="div-comment">
+                                            <input
+                                                className="form-control custom-comment"
+                                                placeholder="Type..." name="comment" onChange={ handleTextComment }
+                                            />
+                                            <button type="submit" className="custom-icon-comment" ><BsFillSendFill/></button>
+                                         </div>
+                                    </form>
+
                             )}
                             
                         </div>
