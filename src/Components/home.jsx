@@ -287,21 +287,32 @@ export const Home = ({ userdata }) => {
                             )}
                             <br/>
                             <br/>
-                            <h4 className="card-title"> Comments </h4>
+                            <h4> Comments </h4>
                             <hr/>
                             {commentData.map((comment) => {
                                 if (comment.id_post === post.id_post) {
                                     return (
-                                      <div className="comment-side" key={comment.id}>
-                                        <div className="comment-name">
-                                          <h5>{comment.name}</h5>
-                                          <h5>{comment.formattedDate}</h5>
+                                    <div className="comment-outside">
+                                        <div className="comment-side" key={comment.id}>
+                                            <div className="comment-name">
+                                                <h5>{comment.name}</h5>
+                                                <h5>{comment.formattedDate}</h5>
+                                            </div>
+                                            <p>{comment._comment}</p>
                                         </div>
-                                        <p>{comment._comment}</p>
-                                      </div>
+                                        {comment.id_user === userdata.data.user.id && (
+                                            <diV  className="comment-edit">
+                                                <button type="submit">Edit</button>
+                                                <button type="submit">Delete</button>
+                                            </diV>
+                                        )}
+                                        
+                                    </div>
+                                     
+                                      
                                     );
                                 } else {
-                                  return null; // No mostrar el comentario si no corresponde al post actual
+                                  return null;
                                 }
                             })}
                             {userdata.data.user.id && (

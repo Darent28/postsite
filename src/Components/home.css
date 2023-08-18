@@ -97,14 +97,17 @@ body {
 }
 
 .comment-side {
-    border: 1px solid #807d8e;; 
+    border: 1px solid #807d8e; 
     height: 70px;
     padding-left: 2%;
     padding-top: 1%;
     border-radius: 20px 100px 100px 20px;
-    margin-bottom: 3%;
     margin-right: 40%;
     background-color: #19161f;
+}
+
+.comment-outside {
+    margin-bottom: 3%;
 }
 
 .comment-name{
@@ -112,7 +115,29 @@ body {
  
 }
 
-.comment-name h5{
+.comment-name h5 {
 
     margin-right: 3%;
+}
+
+.comment-edit {
+    display: flex;
+    margin-right: 2%;
+    margin-left: 1%;
+    margin-top: 4px;
+}
+
+.comment-edit button {
+    margin-left: 1px;
+    margin: inherit;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font-weight: bold;
+}
+
+.comment-edit button:hover {
+    color:#fefeff
 }
