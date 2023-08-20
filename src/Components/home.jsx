@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './home.css'
 import './modal.css'
 import { Link } from 'react-router-dom';
-import { BsFillSendFill } from 'react-icons/bs'
+import { BsFillSendFill } from 'react-icons/bs' 
+import { AiFillLike } from 'react-icons/ai'
 
 
 export const Home = ({ userdata }) => {
@@ -125,10 +126,25 @@ export const Home = ({ userdata }) => {
                     };
                    
                 });
+
+                const initialLikedPosts = {};
+
+                formattedData.forEach((row) => {
+                    const isLiked = localStorage.getItem(`liked_${row.id_post}`);
+                    if (isLiked === 'true') {
+                        initialLikedPosts[row.id_post] = true;
+                    } else {
+                        initialLikedPosts[row.id_post] = false;
+                    }
+                });
+        
+                setLikedPosts(initialLikedPosts);
                 setpostData(formattedData);
             } else {
               console.log('Invalid data format:', data);
             }
+
+           
         })
         .catch((error) => {
           console.error('Fetch error:', error);
@@ -240,7 +256,112 @@ export const Home = ({ userdata }) => {
         
     }, []) 
 
+    const [commentedit, setCommentedit] = useState({
+        _comment: ''
+    });
 
+    
+    const handleTextCommentEdit = e => {
+
+        setCommentedit({
+            ...commentedit,
+            [e.target.name]: e.target.value
+        })
+
+        console.log(commentedit)
+    }
+
+ 
+
+    const handleSubmitCommentEdit = (event, id_comment) => {
+
+
+        const requestInit = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(commentedit),
+        };
+        fetch(`http://localhost:5000/editComment/${(id_comment)}`, requestInit)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((error) => console.log(error));
+    };
+
+    const handleDeleteComment = (id_comment) => {
+        fetch(`http://localhost:5000/deleteComment/${id_comment}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            
+          console.log('Element deleted:', data);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error deleting element:', error);
+        });
+    };
+
+    const [likedPosts, setLikedPosts] = useState({});
+
+    const handleSubmitReaction = (event, id_post) => {
+        const reactiongetdata = { id_post, id_user };
+        
+        const requestInit = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(reactiongetdata)
+        }
+
+        fetch('http://localhost:5000/postReaction', requestInit)
+        .then ((res) => res.json())
+        .then ((res) => {
+
+            
+            if (res.exists) {
+                const updateData = { id_post, id_user };
+
+                const updateRequestInit = {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(updateData)
+                }
+    
+                fetch('http://localhost:5000/updateReaction', updateRequestInit)
+                    .then((updateRes) => updateRes.json())
+                    .then((updateRes) => {
+                        console.log(updateRes);
+                    if (updateRes === 1) {
+                        setLikedPosts(prevState => ({ ...prevState, [id_post]: true }));
+                        localStorage.setItem(`liked_${id_post}`, 'true');
+                    }else {
+                        setLikedPosts(prevState => ({ ...prevState, [id_post]: false }));
+                        localStorage.setItem(`liked_${id_post}`, 'false'); 
+                    }
+                    })
+                    .catch((updateErr) => {
+                        console.error(updateErr);
+                    });
+            } else {
+                setLikedPosts(prevState => ({ ...prevState, [id_post]: true }));
+                localStorage.setItem(`liked_${id_post}`, 'true');
+            }
+        })
+        .catch(err => { 
+            console.error(err)
+        })
+
+       
+
+    }
+
+
+    const [isEditing, setIsEditing] = useState(false);
 
     return(
         <div className='Home'>
@@ -255,7 +376,6 @@ export const Home = ({ userdata }) => {
                     />
                 </div>
             )}
-
                 {postData.map((post) => (
                     <div className="card" key={post.id}>
                         <div className="card-header">
@@ -268,7 +388,7 @@ export const Home = ({ userdata }) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item className='custom-item'><Link to={`./publish/edit/${post.id_post}`} style={{ textDecoration: 'none', color: 'white' }} >Edit</Link></Dropdown.Item>
+                                <Dropdown.Item className='custom-item'><Link to={`./publish/edit/${post.id_post}`} style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></Dropdown.Item>
                                 <Dropdown.Item className='custom-item' onClick={() => handleDelete(post.id_post)}>Delete</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -285,7 +405,10 @@ export const Home = ({ userdata }) => {
                                     className="card-img"
                                 />
                             )}
-                            <br/>
+                             {userdata.data.user.id && (
+                                <button type="submit"   className={`like-icon ${likedPosts[post.id_post] ? 'liked' : ''}`}
+                                onClick={(event) => handleSubmitReaction(event, post.id_post)}> <AiFillLike/> </button>
+                             )}
                             <br/>
                             <h4> Comments </h4>
                             <hr/>
@@ -301,31 +424,45 @@ export const Home = ({ userdata }) => {
                                             <p>{comment._comment}</p>
                                         </div>
                                         {comment.id_user === userdata.data.user.id && (
-                                            <diV  className="comment-edit">
-                                                <button type="submit">Edit</button>
-                                                <button type="submit">Delete</button>
-                                            </diV>
+                                            <div>
+                                                <div className="comment-edit">
+                                                    <button type="submit"
+                                                    onClick={() => setIsEditing(!isEditing)}>Edit</button>
+                                                    <button type="submit"
+                                                    onClick={() => handleDeleteComment(comment.id_comment)}>Delete</button>
+                                                </div>
+                                                {isEditing && (
+                                                    <form  onSubmit={(event) => handleSubmitCommentEdit(event, comment.id_comment)}>
+                                                        <div className="div-comment-edit">
+                                                            <input
+                                                            className="form-control custom-comment-edit"
+                                                            placeholder="Edit text..." name="_comment" onChange={ handleTextCommentEdit }
+                                                            />
+                                                            <button type="submit" className="custom-icon-comment" ><BsFillSendFill/></button>   
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            <hr/>
+                                            </div>
                                         )}
-                                        
-                                    </div>
-                                     
-                                      
+                                    </div>   
                                     );
                                 } else {
                                   return null;
                                 }
+                               
                             })}
+                             
                             {userdata.data.user.id && (
-                                    <form onSubmit={(event) => handleSubmitComment(event, post.id_post)}>
-                                         <div className="div-comment">
-                                            <input
-                                                className="form-control custom-comment"
-                                                placeholder="Type..." name="comment" onChange={ handleTextComment }
-                                            />
-                                            <button type="submit" className="custom-icon-comment" ><BsFillSendFill/></button>
-                                         </div>
-                                    </form>
-
+                                <form onSubmit={(event) => handleSubmitComment(event, post.id_post)}>
+                                    <div className="div-comment">
+                                        <input
+                                        className="form-control custom-comment"
+                                        placeholder="Type..." name="comment" onChange={ handleTextComment }
+                                        />
+                                        <button type="submit" className="custom-icon-comment"><BsFillSendFill/></button>
+                                    </div>
+                                </form>
                             )}
                             
                         </div>

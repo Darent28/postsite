@@ -141,3 +141,44 @@ body {
 .comment-edit button:hover {
     color:#fefeff
 }
+
+.custom-comment-edit {
+    background-color: #201d29;
+    border-color: #504d58;
+    color: #f0edff;
+    height: 40px;
+    margin-right: 3%;
+
+}
+
+.custom-comment-edit::placeholder {
+    color: #a5a2b5;
+
+}
+
+.custom-comment-edit:focus{
+    background-color: #19161f;
+    color: #f0edff;
+}
+
+.div-comment-edit{
+    display: flex;
+    margin-top: 2%;
+    margin-right: 8%;
+}
+
+.like-icon{
+    font-size: 30px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: #a5a2b5;
+    margin-top: 1%;
+} 
+
+.like-icon.liked {
+
+    color: #4aadd8;
+
+}
