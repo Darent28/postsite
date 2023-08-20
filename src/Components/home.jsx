@@ -52,7 +52,7 @@ export const Home = ({ userdata }) => {
         event.preventDefault();
 
         //data validation
-        if ( tittle === '' || text === '' || id_user === '' || !image) {
+        if ( tittle === '' || text === '' || id_user === '') {
             alert('Todos los campos son obligatorios')
             return
         }
@@ -339,7 +339,7 @@ export const Home = ({ userdata }) => {
                     if (updateRes === 1) {
                         setLikedPosts(prevState => ({ ...prevState, [id_post]: true }));
                         localStorage.setItem(`liked_${id_post}`, 'true');
-                    }else {
+                    }else if (updateRes === 0){
                         setLikedPosts(prevState => ({ ...prevState, [id_post]: false }));
                         localStorage.setItem(`liked_${id_post}`, 'false'); 
                     }
@@ -487,7 +487,7 @@ export const Home = ({ userdata }) => {
                     <div className="form-group">
                                 Load image: 
                                 <input type="file" className="form-control custom-input" accept="image/*" 
-                                onChange={handleImageChange} id='fileinput' required/>
+                                onChange={handleImageChange} id='fileinput'/>
                     </div>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         <button type="submit" className="btn btn-secondary">Publish</button>
