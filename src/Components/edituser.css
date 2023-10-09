@@ -1,0 +1,94 @@
+.signin {
+    margin: auto;
+    line-height: 40px;
+    width: 25%;
+    border: 1px solid;
+    background: #201d29;
+    color: rgb(132, 131, 137);
+    padding: 20px;
+    border-radius: 15px ;
+    
+}
+
+.btn {
+    
+    margin-top: 35px;
+    background: #1d1d2d;
+    border: 1px solid rgb(132, 131, 137);
+}
+
+.box {
+    position: absolute;
+    top: 40%;
+    left: 65%;
+    width: 600px;
+    transform: translate(-50%, -50%);
+    height: 100px;
+    }
+
+.boxi {
+        position: absolute;
+        top: 55%;
+        left: 55%;
+        width: 400px;
+        transform: translate(-50%, -50%);
+        height: 100px;
+    }
+
+.imageCircle{
+    
+    width: 130px;
+    height: 130px;
+   
+    background-image: url('https://th.bing.com/th/id/OIP.oOZuV1vLCQkzeM_UjqgdbAHaFP?pid=ImgDet&rs=1');
+    background-size: cover;
+    border-radius: 50%; /* Esto crea el diseño circular */
+    border: 4px solid #f9f9fa; /* Borde blanco opcional */
+}
+
+.btnfoto{
+    padding: 8px 9px;
+    font-size: 11px;
+}
+
+.fotow{
+    
+    width: 100px; 
+    height: 100px;
+    border-radius: 100px;
+}
+
+
+.button {
+    background-color: #1d1d2d;
+    border: 1px solid rgb(132, 131, 137);
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+  }
+  
+  .button2:hover {
+    box-shadow: 0 12px 16px 0 rgb(97, 100, 100),0 17px 50px 0 rgba(105, 100, 100, 0.19);
+  }
+
+  .btnp{
+    display: none;
+  }
+
+
+  .titulo{
+    text-align: center;
+    text-decoration-line: underline;
+   text-decoration-style: solid; 
+   
+   
+ 
+ }
+

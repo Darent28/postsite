@@ -5,7 +5,7 @@ import "./publish-edit.css"
 
 export const Edit = () => {
     const { id_post } = useParams();
-   const [formData, setFormData] = useState({ title: "", text: "" });
+   const [formData, setFormData] = useState({ tittle: "", text: "" });
    
    useEffect ( () => { 
     fetch(`http://localhost:5000/getpost/${(id_post)}`, {
@@ -16,8 +16,8 @@ export const Edit = () => {
       ).then((data) => {
         console.log(data)
         setFormData({
-            title: data.tittle,
-            text: data._text
+            tittle: data.tittle,
+            text: data.text
         });
       })
       .catch((error) => {
@@ -70,8 +70,8 @@ export const Edit = () => {
                         <input
                         type="text"
                         className="form-control custom-input"
-                        name="title"
-                        value={formData.title}
+                        name="tittle"
+                        value={formData.tittle}
                         onChange={handleChange}
                         required/>
                 </div>

@@ -36,7 +36,9 @@ export const HeaderPs = ({userdata, setUserdata, setToken}) => {
                     {name ? (
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                               <li className="nav-item">
-                                <p className="nav-link active">Welcome {name}</p>
+                                {/* <p className="nav-link active">Welcome {name}</p> */}
+                                <Link className="nav-link active" aria-current="page"  onClick={handleLogout} to="./edit-user" >Welcome {name}</Link>
+                             
                               </li>
                               <li className="nav-item">
                                     <Link className="nav-link" aria-current="page" onClick={handleLogout} to="./">LogOut</Link>
@@ -47,9 +49,12 @@ export const HeaderPs = ({userdata, setUserdata, setToken}) => {
                         <li className="nav-item">
                           <Link className="nav-link" aria-current="page" to="./sign-in" >SingIn</Link>
                         </li>
-                        <li className="nav-item container-fluid">
+                        <li className="nav-item">
+                                
+                                  </li>
+                         <li className="nav-item container-fluid">    
                           <Link className="nav-link" aria-current="page" to="./log-in">LogIn</Link>
-                        </li>
+                        </li> 
                       </ul>
                       )}
                     

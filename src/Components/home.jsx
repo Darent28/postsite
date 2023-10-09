@@ -114,30 +114,30 @@ export const Home = ({ userdata }) => {
             response => response.json()
         ).then((data) => {
             if (Array.isArray(data)) {
-                const formattedData = data.map((row) => {
-                    const date = new Date(row._date);
+                const formattedData = data.map((posts) => {
+                    const date = new Date(posts.createdPo);
                     const formattedDate = date.toLocaleString("es-ES", {
                       dateStyle: "short",
                       timeStyle: "short"
                     });
                     return {
-                      ...row,
+                      ...posts,
                       formattedDate
                     };
                    
                 });
-
+                console.log(data)
                 const initialLikedPosts = {};
 
-                formattedData.forEach((row) => {
-                    const isLiked = localStorage.getItem(`liked_${row.id_post}`);
+                formattedData.forEach((posts) => {
+                    const isLiked = localStorage.getItem(`liked_${posts.id_post}`);
                     if (isLiked === 'true') {
-                        initialLikedPosts[row.id_post] = true;
+                        initialLikedPosts[posts.id_post] = true;
                     } else {
-                        initialLikedPosts[row.id_post] = false;
+                        initialLikedPosts[posts.id_post] = false;
                     }
                 });
-        
+                
                 setLikedPosts(initialLikedPosts);
                 setpostData(formattedData);
             } else {
@@ -150,7 +150,7 @@ export const Home = ({ userdata }) => {
           console.error('Fetch error:', error);
         });
           
-      
+    
     }, []) 
 
     const handleDelete = (id) => {
@@ -233,7 +233,7 @@ export const Home = ({ userdata }) => {
           ).then((data) => {
               if (Array.isArray(data)) {
                   const formattedData = data.map((row) => {
-                      const date = new Date(row.c_date);
+                      const date = new Date(row.createdCo);
                       const formattedDate = date.toLocaleString("es-ES", {
                         dateStyle: "short",
                         timeStyle: "short"
@@ -380,7 +380,7 @@ export const Home = ({ userdata }) => {
                     <div className="card" key={post.id}>
                         <div className="card-header">
                             
-                        <h2 className="card-subtitle mb-2 text-muted customcard">{post.name}</h2>
+                        <h2 className="card-subtitle mb-2 text-muted customcard">{userdata.data.user.name}</h2>
                         <h6 className="card-subtitle mb-2 text-muted">{post.formattedDate}</h6>
                         { post.id_user === userdata.data.user.id && (
                         <Dropdown className='custom-dropdown'>
@@ -397,7 +397,7 @@ export const Home = ({ userdata }) => {
                         <div className="card-body">
                             <br />
                             <h2 className="card-title">{post.tittle}</h2>
-                            <p className="card-text">{post._text}</p>
+                            <p className="card-text">{post.text}</p>
                             {post.image_data && (
                                 <img
                                     src={URL.createObjectURL(new Blob([new Uint8Array(post.image_data.data)]))}
@@ -418,10 +418,10 @@ export const Home = ({ userdata }) => {
                                     <div className="comment-outside">
                                         <div className="comment-side" key={comment.id}>
                                             <div className="comment-name">
-                                                <h5>{comment.name}</h5>
+                                                <h5>{userdata.data.user.name}</h5>
                                                 <h5>{comment.formattedDate}</h5>
                                             </div>
-                                            <p>{comment._comment}</p>
+                                            <p>{comment.comment}</p>
                                         </div>
                                         {comment.id_user === userdata.data.user.id && (
                                             <div>
