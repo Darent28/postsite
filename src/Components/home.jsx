@@ -20,7 +20,8 @@ export const Home = ({ userdata }) => {
     const closeModal = () => {
         setIsOpen(false);
     };
-    
+      
+
     const [image, setImage] = useState(null);
 
     const handleImageChange = (event) => {
@@ -152,6 +153,7 @@ export const Home = ({ userdata }) => {
           
     
     }, []) 
+    
 
     const handleDelete = (id) => {
         fetch(`http://localhost:5000/deletePost/${id}`, {
@@ -380,8 +382,9 @@ export const Home = ({ userdata }) => {
                     <div className="card" key={post.id}>
                         <div className="card-header">
                             
-                        <h2 className="card-subtitle mb-2 text-muted customcard">{userdata.data.user.name}</h2>
+                        <h2 className="card-subtitle mb-2 text-muted customcard">{post.user?.name}</h2>
                         <h6 className="card-subtitle mb-2 text-muted">{post.formattedDate}</h6>
+                        
                         { post.id_user === userdata.data.user.id && (
                         <Dropdown className='custom-dropdown'>
                             <Dropdown.Toggle className='custom-toggle' variant="secondary"  id="dropdown-button-drop-end">
@@ -418,7 +421,7 @@ export const Home = ({ userdata }) => {
                                     <div className="comment-outside">
                                         <div className="comment-side" key={comment.id}>
                                             <div className="comment-name">
-                                                <h5>{userdata.data.user.name}</h5>
+                                                <h5>{comment.user?.name}</h5>
                                                 <h5>{comment.formattedDate}</h5>
                                             </div>
                                             <p>{comment.comment}</p>

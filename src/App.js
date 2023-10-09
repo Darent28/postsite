@@ -70,9 +70,7 @@ function App() {
               <Route path='/sign-in' element={ <SignIn user={user} setUser={setUser}/>  }/> 
               <Route path='/edit-user' element={ <Edituser user={user} setUser={setUser}/>  }/> 
               <Route path='/user-profile' element={ <Userprofile user={user} setUser={setUser}/>  }/> 
-              
-              
-              
+
               <Route path='/publish/edit/:id_post' element={ <Edit />  }/>         
           </Routes>
           <Footer/>
