@@ -1,3 +1,7 @@
+.top{
+    height: inherit;
+}
+
 .signin {
     margin: auto;
     line-height: 40px;
@@ -18,22 +22,11 @@
 }
 
 .box {
-    position: absolute;
-    top: 40%;
-    left: 65%;
     width: 600px;
-    transform: translate(-50%, -50%);
+    transform: translate( -15%);
     height: 100px;
-    }
+}
 
-.boxi {
-        position: absolute;
-        top: 55%;
-        left: 55%;
-        width: 400px;
-        transform: translate(-50%, -50%);
-        height: 100px;
-    }
 
 .imageCircle{
     
@@ -87,8 +80,7 @@
     text-align: center;
     text-decoration-line: underline;
    text-decoration-style: solid; 
-   
-   
+
  
  }
 

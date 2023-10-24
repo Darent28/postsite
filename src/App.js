@@ -68,8 +68,8 @@ function App() {
               <Route path='/' element={  <Home userdata={ userdata } />  } />
               <Route path='/log-in' element={ <LogIn user={user} setUser={setUser} setToken={setToken} />  } />
               <Route path='/sign-in' element={ <SignIn user={user} setUser={setUser}/>  }/> 
-              <Route path='/edit-user' element={ <Edituser user={user} setUser={setUser}/>  }/> 
-              <Route path='/user-profile' element={ <Userprofile user={user} setUser={setUser}/>  }/> 
+              <Route path='/user-profile/edit-user' element={ <Edituser/>  }/> 
+              <Route path='/user-profile' element={ <Userprofile userdata={userdata} /> }/> 
 
               <Route path='/publish/edit/:id_post' element={ <Edit />  }/>         
           </Routes>

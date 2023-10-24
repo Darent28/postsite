@@ -38,21 +38,12 @@ export const HeaderPs = ({userdata, setUserdata, setToken}) => {
                   <Link className="nav-link"  to="#">Link</Link>
                 </li>
               </ul>
-              <form className="d-flex ">
+              <form className="d-flex">
                     {name ? (
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                              <li className="nav-item">
-                                {/* <p className="nav-link active">Welcome {name}</p> */}
-                                <Link className="nav-link active" aria-current="page" to="./edit-user" >Welcome {name}</Link>
-                             
-                              </li>
-                              <li className="nav-item">
-                                    <Link className="nav-link" aria-current="page" onClick={handleLogout} to="./">LogOut</Link>
-                              </li>
-                              <li className="nav-item">
-                                    <Link variant="primary" onClick={handleShow} className="nav-link" aria-current="page">profile</Link>
-                              </li>
-
+                            <div className="foto-div"> 
+                              <img src="perro.jpg" id="foto" onClick={handleShow} className="foto-nav"></img>
+                            </div>
                         </ul>
                         
                       ) : (  
@@ -69,23 +60,24 @@ export const HeaderPs = ({userdata, setUserdata, setToken}) => {
                       </ul>
                       )}          
               </form>
-              <OffcanvasComponent show={show} handleClose={handleClose} />
-            </div>           
+              <OffcanvasComponent show={show} handleClose={handleClose} handleLogout={handleLogout} name={name}/>    
+            </div>       
           </nav>
       );
       
 };
 
-const OffcanvasComponent = ({ show, handleClose, handleLogout}) => {
+const OffcanvasComponent = ({ show, handleClose, handleLogout, name}) => {
   return (
     <Offcanvas show={show} onHide={handleClose} placement='end' className="Offcanvas-backgorund">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        <Offcanvas.Title>Welcome {name}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body >
-      <li className="nav-item">
-        <Link className="nav-link" aria-current="page" onClick={handleLogout} to="./">LogOut</Link>
-      </li>
+        <Link className="nav-link" aria-current="page" to="./user-profile">Profile</Link>
+        <Link className="nav-link" aria-current="page" onClick={() =>{ 
+            handleLogout();
+            handleClose();}} to="./">LogOut</Link> 
       </Offcanvas.Body>
     </Offcanvas>
   );

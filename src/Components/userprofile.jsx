@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './userprofile.css';
 
@@ -7,7 +8,8 @@ import './userprofile.css';
 
 
 
-export const Userprofile = ({ user, getUser }) =>{
+export const Userprofile = ({userdata}) =>{
+    const { name } = userdata.data.user;
 
     const handleClick = e => {
         
@@ -19,33 +21,12 @@ export const Userprofile = ({ user, getUser }) =>{
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-       
-       
-        const requestInit = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(user),
-        }
-                         //?????
-
-         fetch('http://localhost:5000/Userprofile', requestInit)
-         .then ((res) => res.json())
-         .then ((res) => {
-             console.log(res)
-        })
-
-      
-
-
-        navigate('/log-in');
-    }
   
     
 
     return(
-        <><div class='fotoportada'>
+    <div>
+        <div class='fotoportada'>
             <img src="fondo.jpg" id="foto" class="fotopor"></img>
             <button class="button3 button3" id="chooseButton1">Update photo</button>
 
@@ -55,8 +36,8 @@ export const Userprofile = ({ user, getUser }) =>{
             
             </div>
             
-            <h2 class="letra1" >Anna Perez </h2>
-            <button class="button4 button4" id="edituser">Edit User</button>
+            <h2 class="letra1" > {name} </h2>
+            <Link to="./edit-user" class="button4" id="edituser">Edit User</Link>
            <br></br>
             <p class="d-inline-flex gap-1">
             
@@ -90,8 +71,8 @@ export const Userprofile = ({ user, getUser }) =>{
       
 </div> */}
             
-        </div> </>
-
+        </div> 
+    </div>
         
     )
 

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './edituser.css';
 
 
-export const Edituser = ({ user, getUser }) =>{
+export const Edituser = () =>{
 
     const handleClick = e => {
         //correct?
@@ -16,51 +16,7 @@ export const Edituser = ({ user, getUser }) =>{
     }
     
 
-    let {name, email, password, password_confirm, imagepe} = user
-
     const navigate = useNavigate();
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-       
-        if ( name === '' || email === '' || password === ''|| password_confirm === ''|| imagepe === '' ) {
-            alert('Todos los campos son obligatorios')
-            return
-        }
-
-       if(password !== password_confirm){
-           alert('Las contraseñas no son iguales')
-           return
-       }
-
-        
-        const requestInit = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(user),
-        }
-                         //?????
-
-         fetch('http://localhost:5000/edituser', requestInit)
-         .then ((res) => res.json())
-         .then ((res) => {
-             console.log(res)
-        })
-
-        //reload state
-        // setUser({
-        //     name: '',
-        //     email: '',
-        //     password: '',
-        //     passwordConfirm: ''
-        // })
-
-       
-
-
-
-        navigate('/log-in');
-    }
 
    
   function fotoi(){
@@ -144,7 +100,7 @@ export const Edituser = ({ user, getUser }) =>{
                  
             <h1 align="center" class="titulo">Edit User</h1>
             <p align="center">This Is Edit User site</p>
-            <form onSubmit={ handleSubmit } align="center" className= "signin">
+            <form align="center" className= "signin">
 
                
             
@@ -155,7 +111,6 @@ export const Edituser = ({ user, getUser }) =>{
                         <br></br><br></br>
                         <input  type="file" id="fileInput" className=" btnp btn btn-dark btnfoto"/>
                         <button onClick={fotoi} class="button button2" id="chooseButton">choose photo</button>
-                
                         </div>
                 </div>  
                 <br></br><br></br>
@@ -173,7 +128,7 @@ export const Edituser = ({ user, getUser }) =>{
                         maxlength="20"
                         className="form-control custom-input"
                         name="name"
-                        onChange={handleClick}
+
                         required/>
                 </div>
                 <div className="form-group ">
@@ -184,7 +139,7 @@ export const Edituser = ({ user, getUser }) =>{
                         className="form-control custom-input"
                         name="email"
                         pattern="(\W|^)[\w.\-]{0,25}@(outlook|yahoo|hotmail|gmail)\.com(\W|$)"
-                        onChange={handleClick}
+   
                         required/>
                 </div>
                 <div className="form-group ">
@@ -195,7 +150,7 @@ export const Edituser = ({ user, getUser }) =>{
                         name="password"
                         minlength="1"
                         maxlength="20"
-                        onChange={handleClick}
+
                         required/>
                 </div>
                 <div className="form-group ">
@@ -206,7 +161,7 @@ export const Edituser = ({ user, getUser }) =>{
                         name="password_confirm"
                         minlength="1"
                         maxlength="20"
-                        onChange={handleClick}
+
                         required/>
                 </div>
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Sign in</button>
