@@ -22,17 +22,40 @@ export const Userprofile = ({userdata}) =>{
     const navigate = useNavigate();
 
   
-    
+    function fotoi(){
+      const fileInput = document.getElementById('fileInput');
+      const chooseButton = document.getElementById('chooseButton');
+      const foto = document.getElementById('foto');
+      
+      chooseButton.addEventListener('click', () => {
+          fileInput.click();
+      });
+      
+      fileInput.addEventListener('change', (event) => {
+          const selectedFile = event.target.files[0];
+          
+          if (selectedFile) {
+              const reader = new FileReader();
+              
+              reader.onload = (e) => {
+                  foto.src = e.target.result;
+              };
+              
+              reader.readAsDataURL(selectedFile);
+          }
+      });
+      
+    }
 
     return(
     <div>
         <div class='fotoportada'>
             <img src="fondo.jpg" id="foto" class="fotopor"></img>
-            <button class="button3 button3" id="chooseButton1">Update photo</button>
+            <button class="button3 button3" id="chooseButton1">Background</button>
 
             <div class='cambiarpor'>  {/* aqui la foto de perfil */}
-            <img src="perro.jpg" id="foto" class="fotow"></img>
-            <button class="button button2" id="chooseButton">Edit</button>
+            <img src="perro.jpg" id="fileInput" class="fotow"></img>
+            <button class="button button2" onClick={fotoi} id="chooseButton">Edit</button>
             
             </div>
             
