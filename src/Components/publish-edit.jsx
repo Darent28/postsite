@@ -6,7 +6,8 @@ import "./publish-edit.css"
 export const Edit = () => {
     const { id_post } = useParams();
    const [formData, setFormData] = useState({ tittle: "", text: "" });
-   
+   const [image, setImage] = useState(null);
+   console.log(image)
    useEffect ( () => { 
     fetch(`http://localhost:5000/getpost/${(id_post)}`, {
       method: 'GET',
@@ -39,12 +40,18 @@ export const Edit = () => {
 
     const navigate = useNavigate();
 
+    let {tittle, text} = formData
+
     const handleSubmit = () => {
+
+       const formData = new FormData();
+       formData.append('tittle', tittle);
+       formData.append('text', text);
+       formData.append('image_data', image);
 
         const requestInit = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
+            body: formData,
         };
         fetch(`http://localhost:5000/editPost/${(id_post)}`, requestInit)
         .then((response) => response.json())
@@ -54,7 +61,22 @@ export const Edit = () => {
         .catch((error) => console.log(error));
     };
 
-  
+    
+
+    const handleImageChange = (event) => {
+        const selectedImage = setImage(event.target.files[0]);
+
+        if (selectedImage) {
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+            if (selectedImage.size > maxSizeInBytes) {
+                alert('Image size is too large. Please select a smaller image.');
+                event.target.value = null; // Clear the input
+                setImage(null); // Clear the state
+            } else {
+                setImage(selectedImage);
+            }
+        }
+    };
     
     
     
@@ -82,6 +104,11 @@ export const Edit = () => {
                         value={formData.text}
                         onChange={handleChange}
                         required/>
+                </div>
+                <div className="form-group">
+                                Load image: 
+                                <input type="file" className="form-control custom-input" accept="image/*" 
+                                onChange={handleImageChange} id='fileinput'/>
                 </div>
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Edit</button>
             </form>

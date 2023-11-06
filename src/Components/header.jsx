@@ -71,7 +71,7 @@ export const HeaderPs = ({userdata, setUserdata, setToken}) => {
                     {name ? (
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <div className="foto-div"> 
-                              <img
+                            <img
                                 src={URL.createObjectURL(new Blob([new Uint8Array(formProfileData.imgPhoto.data)]))}
                                 alt="User Profile"
                                 onClick={handleShow} 

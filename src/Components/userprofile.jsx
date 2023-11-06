@@ -125,7 +125,7 @@ export const Userprofile = () =>{
     <div>
         <div className='fotoportada'>
 
-            <img src={URL.createObjectURL(new Blob([new Uint8Array(formProfileData.
+        <img src={URL.createObjectURL(new Blob([new Uint8Array(formProfileData.
               imgCover.data)]))} id="foto" className="fotopor"/>
             <input type="file" id="fileInput1" onChange={handleCoverChange} className="btnp btn btn-dark btnfoto" />
             <button className="button3 button3" onClick={handleCoverUpload} id="chooseButton1">Background</button>

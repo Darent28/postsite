@@ -382,7 +382,11 @@ export const Home = ({ userdata }) => {
                 {postData.map((post) => (
                     <div className="card" key={post.id}>
                         <div className="card-header">
-                            
+                        <img
+                                src={URL.createObjectURL(new Blob([new Uint8Array(post.user?.imgPhoto.data)]))}
+                                alt="User Profile"
+                                className="foto-nav"
+                              />   
                         <h2 className="card-subtitle mb-2 text-muted customcard">{post.user?.name}</h2>
                         <h6 className="card-subtitle mb-2 text-muted">{post.formattedDate}</h6>
                         

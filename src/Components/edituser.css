@@ -50,6 +50,12 @@
     height: 100px;
     border-radius: 100px;
 }
+.foto-edit{
+    
+    width: 200px; 
+    height: 200px;
+    border-radius: 100px;
+}
 
 
 .button {
@@ -84,3 +90,13 @@
  
  }
 
+ .img-group{
+    text-align: center;
+    margin-bottom: 2%;
+ }
+
+ .box-edit{
+    margin-top: 1%;
+ }
+
+ 
