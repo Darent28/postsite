@@ -410,7 +410,7 @@ export const Home = ({ userdata }) => {
                                 />
                             )}
                              {userdata.data.user.id && (
-                                <button type="submit"   className={`like-icon ${likedPosts[post.id_post] ? 'liked' : ''}`}
+                                <button type="submit" className={`like-icon ${likedPosts[post.id_post] ? 'liked' : ''}`}
                                 onClick={(event) => handleSubmitReaction(event, post.id_post)}> <AiFillLike/> </button>
                              )}
                             <br/>

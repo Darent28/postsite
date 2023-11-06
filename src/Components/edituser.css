@@ -2,7 +2,7 @@
     height: inherit;
 }
 
-.signin {
+.edituser {
     margin: auto;
     line-height: 40px;
     width: 25%;
@@ -11,6 +11,7 @@
     color: rgb(132, 131, 137);
     padding: 20px;
     border-radius: 15px ;
+    margin-bottom: 2%;
     
 }
 
@@ -32,7 +33,6 @@
     
     width: 130px;
     height: 130px;
-   
     background-image: url('https://th.bing.com/th/id/OIP.oOZuV1vLCQkzeM_UjqgdbAHaFP?pid=ImgDet&rs=1');
     background-size: cover;
     border-radius: 50%; /* Esto crea el diseño circular */

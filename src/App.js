@@ -64,12 +64,13 @@ function App() {
   return (
     <div>
         <HeaderPs  userdata={userdata} setUserdata={setUserdata}  setToken={setToken}/>
+        
           <Routes>
               <Route path='/' element={  <Home userdata={ userdata } />  } />
               <Route path='/log-in' element={ <LogIn user={user} setUser={setUser} setToken={setToken} />  } />
               <Route path='/sign-in' element={ <SignIn user={user} setUser={setUser}/>  }/> 
-              <Route path='/user-profile/edit-user' element={ <Edituser/>  }/> 
-              <Route path='/user-profile' element={ <Userprofile userdata={userdata} /> }/> 
+              <Route path='/user-profile/:id/edit-user' element={ <Edituser/>  }/> 
+              <Route path='/user-profile/:id' element={ <Userprofile/> }/> 
 
               <Route path='/publish/edit/:id_post' element={ <Edit />  }/>         
           </Routes>

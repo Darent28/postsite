@@ -47,12 +47,11 @@ export const Edit = () => {
             body: JSON.stringify(formData),
         };
         fetch(`http://localhost:5000/editPost/${(id_post)}`, requestInit)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-            })
-            .catch((error) => console.log(error));
-            navigate('/');
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((error) => console.log(error));
     };
 
   
