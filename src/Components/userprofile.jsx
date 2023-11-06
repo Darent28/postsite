@@ -148,7 +148,7 @@ export const Userprofile = () =>{
         <button className="button5 button5 me-md-5">About</button>
        
         <button className="button5 button5 me-md-5">Photos</button>
-        <button className="button5 button5 me-md-5">Friends</button>
+
        
       
         </p>
