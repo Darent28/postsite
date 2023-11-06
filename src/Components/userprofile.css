@@ -1,13 +1,5 @@
-.signin {
-    margin: auto;
-    line-height: 40px;
-    width: 25%;
-    border: 1px solid;
-    background: #201d29;
-    color: rgb(132, 131, 137);
-    padding: 20px;
-    border-radius: 15px ;
-    
+.profile{
+  height: 20000px;
 }
 
 .btn {
@@ -182,7 +174,7 @@
   }
 
   .linea {
-    border-top: 1px solid rgb(253, 252, 252);
+    border-top: 1px solid #fdfcfc;
     height: 2px;
     max-width: 1200px;
     padding: 0;

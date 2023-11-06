@@ -11,6 +11,9 @@ export const Edituser = () =>{
         email: ""
     });
 
+    const [formPassword, setFormPasswordData] = useState
+    ({  password: "", password_confirm:"" });
+
     useEffect ( () => { 
         fetch(`http://localhost:5000/getProfile/${(id)}`, {
           method: 'GET',
@@ -38,9 +41,7 @@ export const Edituser = () =>{
             ...formProfileData,
             [e.target.name]: e.target.value
         })
-        console.log(formProfileData)
-    };
-
+    };  
 
     const handleSubmit = () => {
         const formeditprofile = 
@@ -48,8 +49,6 @@ export const Edituser = () =>{
                 name: formProfileData.name,
                 email: formProfileData.email
             };
-
-            console.log(formeditprofile)
 
         const requestInit = {
             method: "PUT",
@@ -64,6 +63,39 @@ export const Edituser = () =>{
         .catch((error) => console.log(error));
     };   
 
+    const handleChangePassword = e => {
+        setFormPasswordData({
+            ...formPassword,
+            [e.target.name]: e.target.value
+        })
+        console.log(formPassword)
+    };
+
+    const {password, password_confirm} = formPassword
+
+    const handleSubmitPassword = () => {
+
+        if (password != password_confirm) {
+            alert("password no match!");
+            return;
+        }
+        const formeditprofile = 
+        {  
+            password: formPassword.password
+        };
+
+        const requestInit = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formeditprofile),
+        };
+        fetch(`http://localhost:5000/editUserPassword/${id}`, requestInit)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((error) => console.log(error));
+    }; 
 
     return(
         <div className='top'>
@@ -96,7 +128,7 @@ export const Edituser = () =>{
 
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Edit</button>
             </form>
-            <form align="center" className= "edituser">
+            <form align="center" className= "edituser" onSubmit={() => handleSubmitPassword(id)} >
             Want to change your password?
             <div className="form-group ">
                         Password:
@@ -104,6 +136,7 @@ export const Edituser = () =>{
                         type="password"
                         className="form-control custom-input"
                         name="password"
+                        onChange={handleChangePassword}
                         required/>
                 </div>
                 <div className="form-group ">
@@ -112,6 +145,7 @@ export const Edituser = () =>{
                         type="password"
                         className="form-control custom-input"
                         name="password_confirm"
+                        onChange={handleChangePassword}
                         required/>
                 </div>
                 <button type="submit" className="btn btn-secondary form-control" value="Submit">Edit Password</button>
