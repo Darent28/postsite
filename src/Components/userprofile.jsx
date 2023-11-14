@@ -371,7 +371,20 @@ export const Userprofile = () =>{
                <bottom type="submit" className="btn btn-secondary"  onClick={() => setIsEditing(!isEditing)}>Edit</bottom>
               </Tab>
               <Tab eventKey="Photos" title="Photos" >
-                Tab content for Photos
+              <br/>
+              <div className="instagram-container" >
+              {postData.map((post, index) => (
+                    <div key={index} className="photo-container" >
+                            {post.image_data && (
+                                <img
+                                    src={URL.createObjectURL(new Blob([new Uint8Array(post.image_data.data)]))}
+                                    alt={`Post ${index + 1}`}
+                                    className="img-profile"
+                                />
+                            )}                      
+                    </div>
+                ))}
+              </div>
               </Tab>
             </Tabs>   
 
