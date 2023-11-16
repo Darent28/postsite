@@ -387,22 +387,6 @@ export const Userprofile = () =>{
               </div>
               </Tab>
             </Tabs>   
-
-        {/* <p className="d-inline-flex gap-1">
-        <button className="button5 button5 me-md-5">Timeline</button>
-        <button className="button5 button5 me-md-5">About</button>
-       
-        <button className="button5 button5 me-md-5">Photos</button>
-
-       
-      
-        </p>
-
-
-        </div>
-        <div className="linea"></div>
-        <br></br>  */}
-
       </div>        
 
     </div>
