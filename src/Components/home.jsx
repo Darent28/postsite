@@ -327,6 +327,8 @@ export const Home = ({ userdata }) => {
 
             
             if (res.exists) {
+                
+
                 const updateData = { id_post, id_user };
 
                 const updateRequestInit = {
@@ -334,7 +336,7 @@ export const Home = ({ userdata }) => {
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(updateData)
                 }
-    
+                
                 fetch('http://localhost:5000/updateReaction', updateRequestInit)
                     .then((updateRes) => updateRes.json())
                     .then((updateRes) => {
@@ -350,7 +352,7 @@ export const Home = ({ userdata }) => {
                     .catch((updateErr) => {
                         console.error(updateErr);
                     });
-            } else {
+            } else{
                 setLikedPosts(prevState => ({ ...prevState, [id_post]: true }));
                 localStorage.setItem(`liked_${id_post}`, 'true');
             }
@@ -413,7 +415,7 @@ export const Home = ({ userdata }) => {
                                     className="card-img"
                                 />
                             )}
-                             {userdata.data.user.id && (
+                             {post.id_user && (
                                 <button type="submit" className={`like-icon ${likedPosts[post.id_post] ? 'liked' : ''}`}
                                 onClick={(event) => handleSubmitReaction(event, post.id_post)}> <AiFillLike/> </button>
                              )}
